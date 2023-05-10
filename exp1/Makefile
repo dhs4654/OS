@@ -1,6 +1,6 @@
 #Build module hello_world  
 ifneq ($(KERNELRELEASE),)  
-    obj-m := hello_world.o  
+    obj-m := hello_magic_student.o  
 else  
     KERNELDIR ?=/root/kernel  
     PWD := $(shell pwd)  
