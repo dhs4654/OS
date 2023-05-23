@@ -11,18 +11,20 @@ static int age = 21;
 module_param(age, int, 0644);  
 MODULE_PARM_DESC(age, "int param\n");  
 
-void hello_student(char* name, int id, int age) {
+void hello_student(char* name, char id, int age) {
     printk(KERN_ALERT "My name is %s, student id is %d. I am %d years old.\n", name, id, age);
 }
 
 void my_magic_number(int id, int age) {
     int sum = 0;
-    while (id > 0) {
-        sum += id % 10;
-        id /= 10;
+    int i = 0;
+    while (id[i]) {
+        sum += id[i] - '0';
+        i += 1;
     }
-    int magic_number = (sum + age) % 10;
-    printk(KERN_ALERT "My magic number is %d.\n", magic_number);
+    sum = sum + age;
+    int magicNumber = sum % 10;
+    printk(KERN_ALERT "My magic number is %d.\n", magicNumber);
 }
 int __init hello_init(void)  
 {  
