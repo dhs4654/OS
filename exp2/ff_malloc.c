@@ -7,12 +7,13 @@
 /* This header is stored at the beginning of memory segments in the list. */  
 union header {  
   struct {  
-    union header *next;  
-    unsigned len;  
+    union header *next; // 指向下一个内存段的指针  
+    unsigned len;  // 当前内存段的长度
   } meta;  
-  long x; /* Presence forces alignment of headers in memory. */  
+  long x; // 强制对齐头部在内存中的位置
+  /* Presence forces alignment of headers in memory. */  
 };
-static union header list;  
+static union header list;  // 存储内存段链表的头部信息
 static union header *first = NULL;
 void free(void* ptr) {  
   if (ptr == NULL) {  

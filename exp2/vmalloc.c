@@ -4,11 +4,11 @@ MODULE_LICENSE("GPL");
 unsigned char *vmallocmem1;
 unsigned char *vmallocmem2;
 unsigned char *vmallocmem3;
-unsigned char *kmallocmem4;
+unsigned char *vmallocmem4;
 static int __init mem_module_init(void)
 {
     printk("Start vmalloc!\n");
-    vmallocmem1 = (unsigned char*)vmalloc(8192);
+    vmallocmem1 = (unsigned char*)vmalloc(8192); // 8KB
     if (vmallocmem1 != NULL){
         printk("vmallocmem1 addr = %lx\n", (unsigned long)vmallocmem1);
     }else{
@@ -26,11 +26,11 @@ static int __init mem_module_init(void)
     }else{
         printk("Failed to allocate vmallocmem3!\n");
     }
-    kmallocmem4 = (unsigned char*)vmalloc(4194304 + 1024); // 4MB + 1KB
-    if (kmallocmem4 != NULL) {
-        printk(KERN_ALERT "kmallocmem4 addr = %lx\n", (unsigned long)kmallocmem4);
+    vmallocmem4 = (unsigned char*)vmalloc(4194304 + 1024); // 4MB + 1KB
+    if (vmallocmem4 != NULL) {
+        printk(KERN_ALERT "vmallocmem4 addr = %lx\n", (unsigned long)vmallocmem4);
     } else {
-        printk("Failed to allocate kmallocmem4!\n");
+        printk("Failed to allocate vmallocmem4!\n");
     } 
     return 0;
 }
