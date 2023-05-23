@@ -28,7 +28,7 @@ static int __init mem_module_init(void)
 
     kmallocmem3 =  (unsigned char*)kmalloc(1024, GFP_KERNEL);
     int i = 1;
-    while (kmapmem3 != NULL)
+    while (kmallocmem3 != NULL)
     {
         kfree(kmallocmem3);
         kmallocmem3 = (unsigned char*)kmalloc(1024 * i, GFP_KERNEL);
@@ -36,7 +36,7 @@ static int __init mem_module_init(void)
     }
     i /= 4;
     printk(KERN_ALERT "Max size = %d KB\n", i);
-    free(kmallocmem3);
+    kfree(kmallocmem3);
     kmallocmem3 = (unsigned char*)kmalloc(1024 * i, GFP_KERNEL);
     if (kmallocmem3 != NULL) {
         printk(KERN_ALERT "kmallocmem3 addr = %lx\n", (unsigned long)kmallocmem3);
