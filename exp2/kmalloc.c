@@ -12,41 +12,43 @@ unsigned char *kmallocmem4;
 
 static int __init mem_module_init(void)
 {
-    printk(KERN_INFO "Start kmalloc!\n");
-
+    printk("Start kmalloc!\n");
     kmallocmem1 = (unsigned char*)kmalloc(1024, GFP_KERNEL);
-    if (!kmallocmem1) {
-        printk(KERN_ALERT "Failed to allocate kmallocmem1!\n");
-        return -ENOMEM;
+    if (kmallocmem1 != NULL){
+        printk(KERN_ALERT "kmallocmem1 addr = %lx\n", (unsigned long)kmallocmem1);
+    }else{
+        printk("Failed to allocate kmallocmem1!\n");
     }
-    printk(KERN_INFO "kmallocmem1 addr= %p\n", (unsigned long)kmallocmem1);
-
-    kmallocmem2 =  (unsigned char*)kmalloc(8192, GFP_KERNEL);
-    if (!kmallocmem2) {
-        printk(KERN_ALERT "Failed to allocate kmallocmem2!\n");
-        kfree(kmallocmem1);
-        return -ENOMEM;
+    kmallocmem2 = (unsigned char *)kmalloc(8192, GFP_KERNEL);
+    if (kmallocmem2 != NULL){
+        printk(KERN_ALERT "kmallocmem2 addr = %lx\n", (unsigned long)kmallocmem2);
+    }else{
+        printk("Failed to allocate kmallocmem2!\n");
     }
-    printk(KERN_INFO "kmallocmem2 addr= %p\n", (unsigned long)kmallocmem2);
 
-    kmallocmem3 =  (unsigned char*)kmalloc((size_t)(-1), GFP_KERNEL);
-    if (!kmallocmem3) {
-        printk(KERN_ALERT "Failed to allocate kmallocmem3!\n");
-        kfree(kmallocmem2);
-        kfree(kmallocmem1);
-        return -ENOMEM;
-    }
-    printk(KERN_INFO "kmallocmem3 addr= %p\n", (unsigned long)kmallocmem3);
-
-    kmallocmem4 = (unsigned char*)kmalloc((size_t)(-1) + 1, GFP_KERNEL);
-    if (!kmallocmem4) {
-        printk(KERN_ALERT "Failed to allocate kmallocmem4!\n");
+    kmallocmem3 =  (unsigned char*)kmalloc(1024, GFP_KERNEL);
+    int i = 1;
+    while (kmapmem3 != NULL)
+    {
         kfree(kmallocmem3);
-        kfree(kmallocmem2);
-        kfree(kmallocmem1);
-        return -ENOMEM;
+        kmallocmem3 = (unsigned char*)kmalloc(1024 * i, GFP_KERNEL);
+        i *= 2;
     }
-
+    i /= 4;
+    printk(KERN_ALERT "Max size = %d KB\n", i);
+    free(kmallocmem3);
+    kmallocmem3 = (unsigned char*)kmalloc(1024 * i, GFP_KERNEL);
+    if (kmallocmem3 != NULL) {
+        printk(KERN_ALERT "kmallocmem3 addr = %lx\n", (unsigned long)kmallocmem3);
+    } else {
+        printk("Failed to allocate kmallocmem3!\n");
+    } 
+    kmallocmem4 = (unsigned char*)kmalloc(1024 * i + 1024, GFP_KERNEL);
+    if (kmallocmem4 != NULL) {
+        printk(KERN_ALERT "kmallocmem4 addr = %lx\n", (unsigned long)kmallocmem4);
+    } else {
+        printk("Failed to allocate kmallocmem4!\n");
+    } 
     return 0;
 }
 
