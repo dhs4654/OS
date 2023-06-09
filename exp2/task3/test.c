@@ -6,7 +6,7 @@ int main(int argc, char *argv[]) {
   int i, j, k; 
   for (k = 0; k < 2; k++) { 
     for (i = 0; i < 6; i++) { 
-      arrays[i] = (int *)bf_malloc(sizeof(int) * request[i + 5 * k]); 
+      arrays[i] = (int *)ff_malloc(sizeof(int) * request[i + 5 * k]); 
     } 
     for (i = 0; i < 6; i++) { 
       free(arrays[i]);

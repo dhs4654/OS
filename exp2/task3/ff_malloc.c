@@ -103,7 +103,7 @@ void *ff_malloc(size_t size)
   {
     if (p->meta.len >= true_size)
     {
-      printf("User need %u size, but give %u size.",true_size*sizeof(union header), p->meta.len*sizeof(union header));
+      printf("User need %u size, but give %u size.\n",true_size*sizeof(union header), p->meta.len*sizeof(union header));
       if (p->meta.len == true_size) //  = true_size，直接返回
       {
         prev->meta.next = p->meta.next;
